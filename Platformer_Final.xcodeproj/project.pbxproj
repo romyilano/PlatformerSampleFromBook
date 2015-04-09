@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		C8544CF31AC1867E009DF6BF /* ParticleEffectPlayerCollide.sks in Resources */ = {isa = PBXBuildFile; fileRef = C8544CF11AC1867E009DF6BF /* ParticleEffectPlayerCollide.sks */; };
 		C8544CF41AC1867E009DF6BF /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = C8544CF21AC1867E009DF6BF /* spark.png */; };
-		C8578F731AD01B70005261F4 /* bro5_run.atlas in Resources */ = {isa = PBXBuildFile; fileRef = C8578F721AD01B70005261F4 /* bro5_run.atlas */; };
 		C85D02061AD5033A00F4335D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85D02051AD5033A00F4335D /* AVFoundation.framework */; };
 		C85D02081AD5360700F4335D /* Strong_Punch-Mike_Koenig-574430706.wav in Resources */ = {isa = PBXBuildFile; fileRef = C85D02071AD5360700F4335D /* Strong_Punch-Mike_Koenig-574430706.wav */; };
 		C85D020A1AD5420900F4335D /* AddScoreScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85D02091AD5420900F4335D /* AddScoreScene.swift */; };
@@ -17,6 +16,7 @@
 		C863C97B1AD409960017BACB /* game_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C863C97A1AD409950017BACB /* game_music.mp3 */; };
 		C8B914141AC2EF4100861AFC /* blurShade.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C8B914131AC2EF4100861AFC /* blurShade.fsh */; };
 		C8B914161AC2F04100861AFC /* ShaderDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B914151AC2F04100861AFC /* ShaderDemo.swift */; };
+		C8C8EDBF1AD6C1CA00F6AF2F /* bro5_run.atlas in Resources */ = {isa = PBXBuildFile; fileRef = C8C8EDBE1AD6C1CA00F6AF2F /* bro5_run.atlas */; };
 		C8F399D01AB335EA00476FBB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F399CF1AB335EA00476FBB /* AppDelegate.swift */; };
 		C8F399D61AB335EA00476FBB /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F399D51AB335EA00476FBB /* GameViewController.swift */; };
 		C8F399D91AB335EA00476FBB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8F399D71AB335EA00476FBB /* Main.storyboard */; };
@@ -53,7 +53,6 @@
 /* Begin PBXFileReference section */
 		C8544CF11AC1867E009DF6BF /* ParticleEffectPlayerCollide.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ParticleEffectPlayerCollide.sks; sourceTree = "<group>"; };
 		C8544CF21AC1867E009DF6BF /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
-		C8578F721AD01B70005261F4 /* bro5_run.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = bro5_run.atlas; path = ../bro5_run.atlas; sourceTree = "<group>"; };
 		C85D02051AD5033A00F4335D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C85D02071AD5360700F4335D /* Strong_Punch-Mike_Koenig-574430706.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Strong_Punch-Mike_Koenig-574430706.wav"; path = "../../Downloads/Strong_Punch-Mike_Koenig-574430706.wav"; sourceTree = "<group>"; };
 		C85D02091AD5420900F4335D /* AddScoreScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddScoreScene.swift; sourceTree = "<group>"; };
@@ -62,6 +61,7 @@
 		C8B914131AC2EF4100861AFC /* blurShade.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = blurShade.fsh; sourceTree = "<group>"; };
 		C8B914151AC2F04100861AFC /* ShaderDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShaderDemo.swift; path = Platformer_Final/ShaderDemo.swift; sourceTree = "<group>"; };
 		C8B914171AC306EB00861AFC /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		C8C8EDBE1AD6C1CA00F6AF2F /* bro5_run.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = bro5_run.atlas; sourceTree = "<group>"; };
 		C8F399CA1AB335EA00476FBB /* Platformer_Final.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Platformer_Final.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8F399CE1AB335EA00476FBB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8F399CF1AB335EA00476FBB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Platformer_Final/AppDelegate.swift; sourceTree = "<group>"; };
@@ -139,12 +139,12 @@
 		C8F399C11AB335EA00476FBB = {
 			isa = PBXGroup;
 			children = (
+				C8C8EDBE1AD6C1CA00F6AF2F /* bro5_run.atlas */,
 				C85D020B1AD5431B00F4335D /* ScoreList.swift */,
 				C85D02091AD5420900F4335D /* AddScoreScene.swift */,
 				C85D02071AD5360700F4335D /* Strong_Punch-Mike_Koenig-574430706.wav */,
 				C85D02051AD5033A00F4335D /* AVFoundation.framework */,
 				C863C97A1AD409950017BACB /* game_music.mp3 */,
-				C8578F721AD01B70005261F4 /* bro5_run.atlas */,
 				C8B914171AC306EB00861AFC /* OpenGLES.framework */,
 				C8F399CF1AB335EA00476FBB /* AppDelegate.swift */,
 				C8F399CC1AB335EA00476FBB /* Platformer_Final */,
@@ -294,13 +294,13 @@
 				C8F399DE1AB335EA00476FBB /* LaunchScreen.xib in Resources */,
 				C8F399D91AB335EA00476FBB /* Main.storyboard in Resources */,
 				C8B914141AC2EF4100861AFC /* blurShade.fsh in Resources */,
+				C8C8EDBF1AD6C1CA00F6AF2F /* bro5_run.atlas in Resources */,
 				C8F39A0C1AB34AC700476FBB /* Game.sks in Resources */,
 				C863C97B1AD409960017BACB /* game_music.mp3 in Resources */,
 				C8544CF31AC1867E009DF6BF /* ParticleEffectPlayerCollide.sks in Resources */,
 				C85D02081AD5360700F4335D /* Strong_Punch-Mike_Koenig-574430706.wav in Resources */,
 				C8F399FA1AB345D300476FBB /* idle.atlas in Resources */,
 				C8F39A0F1AB34AC700476FBB /* Movie.m4v in Resources */,
-				C8578F731AD01B70005261F4 /* bro5_run.atlas in Resources */,
 				C8F39A0D1AB34AC700476FBB /* Mackinaw1.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

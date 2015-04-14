@@ -14,13 +14,19 @@ import AVFoundation
 
 
 
-class GameScene: SKScene,SKPhysicsContactDelegate, AVAudioPlayerDelegate
+class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
 {
+    // ADDING LEVELS
+    let levelLabel = SKLabelNode(fontNamed: "Chalkduster")
+    var level = 1
+    
+    
     var highScorerListInstance : ScoreList?
     var highestScore:Int = Int()
     var highestScorer:String = String()
     var savedScore: Int = Int()
     
+    // ADDING SOUND EFFECT
     var avPlayer:AVAudioPlayer!
     var backgroundSound = "game_music"
     var gameOutSound = "Strong_Punch-Mike_Koenig-574430706"
@@ -31,14 +37,15 @@ class GameScene: SKScene,SKPhysicsContactDelegate, AVAudioPlayerDelegate
         var error: NSError?
         let fileURL:NSURL = NSBundle.mainBundle().URLForResource(soundName, withExtension: ext)!
         
-        // the player must be a field. Otherwise it will be released before playing starts.
         self.avPlayer = AVAudioPlayer(contentsOfURL: fileURL, error: &error)
         if avPlayer == nil
         {
-            if let e = error {
+            if let e = error
+            {
                 println(e.localizedDescription)
             }
         }
+        
         if avPlayer.playing
         {
             avPlayer.stop()
@@ -114,9 +121,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate, AVAudioPlayerDelegate
             self.highestScore = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as Int
             
         }
-        
-        
-        
         println(savedScore)
        
         readFileIntoAVPlayer(backgroundSound, ext: "mp3")
@@ -135,28 +139,38 @@ class GameScene: SKScene,SKPhysicsContactDelegate, AVAudioPlayerDelegate
        //PROPERTIES FOR PARTICLE NODE      CHAPTER 7
         self.particlePlayerNode.zPosition = 1
         self.particlePlayerNode.hidden = true
+        self.player.addChild(self.particlePlayerNode)
         
         //#3
         addBackGround()
         addRunningBar()
         addPlayer()
-        
-        //ADDING PARTICLE NODE ON SCREEN (AS CHILD TO PLAYER)      CHAPTER 7
-        self.player.addChild(self.particlePlayerNode)
-       
+        addScoreLabel()
+        addLevelLabel()
         addBlocks()
         //addSpriteWithoutTexture()
         
-        self.scoreText.text = "0"
-        self.scoreText.fontSize = 42
-        self.scoreText.position = CGPointMake(CGRectGetMinX(self.frame) + scoreText.frame.width * 4 , CGRectGetMidY(self.frame) + scoreText.frame.height * 4.2)
-        self.addChild(self.scoreText)
-        
         addPlayPauseButton()
-
         
     }
 //====================================================================================================================//
+    func addLevelLabel()
+    {
+        self.levelLabel.text = "Level: 1"
+        self.levelLabel.fontSize = 30
+        self.levelLabel.position = CGPointMake(CGRectGetMidX(self.frame)  + scoreText.frame.width  / 2 /*  4 */ , CGRectGetMidY(self.frame) + levelLabel.frame.height * 4.2)
+        self.addChild(self.levelLabel)
+    }
+    
+    func addScoreLabel()
+    {
+        self.scoreText.text = "Score: 0"
+        self.scoreText.fontSize = 30
+        self.scoreText.position = CGPointMake(CGRectGetMinX(self.frame) + scoreText.frame.width / 1.8  , CGRectGetMidY(self.frame) + scoreText.frame.height * 4.2)
+        self.addChild(self.scoreText)
+    }
+    
+    
  
     func addPlayPauseButton()
     {
@@ -297,16 +311,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate, AVAudioPlayerDelegate
     {
         // PHYSICS PROPERTIES FOR BLOCK 1
         self.block1.position = CGPointMake(CGRectGetMaxX(self.frame) + self.block1.size.width, self.playerBaseline)
-        self.block2.position = CGPointMake(CGRectGetMaxX(self.frame) + self.block2.size.width, self.playerBaseline) //+ (self.block1.size.height / 2))
-        
         self.block1.physicsBody = SKPhysicsBody(rectangleOfSize: self.block1.size)
         self.block1.physicsBody?.dynamic = false
         self.block1.physicsBody?.categoryBitMask = ColliderType.Block.rawValue
         self.block1.physicsBody?.contactTestBitMask = ColliderType.player.rawValue
         self.block1.physicsBody?.collisionBitMask = ColliderType.player.rawValue
         
-        
         // PHYSICS PROPERTIES FOR BLOCK 2
+        self.block2.position = CGPointMake(CGRectGetMaxX(self.frame) + self.block2.size.width, self.playerBaseline) //+ (self.block1.size.height / 2))
         self.block2.physicsBody = SKPhysicsBody(rectangleOfSize: self.block2.size)
         self.block2.physicsBody?.dynamic = false
         self.block2.physicsBody?.categoryBitMask = ColliderType.Block.rawValue
@@ -342,7 +354,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate, AVAudioPlayerDelegate
             if node.name == player.name
             {
                 //currentno++
-               
                 
                 if self.onGround
                 {
@@ -358,7 +369,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate, AVAudioPlayerDelegate
                 println("Jump Tapped!")
                 if self.onGround
                 {
-                    
                     self.velocityY = -18.0
                     self.onGround = false
                 }
@@ -405,11 +415,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate, AVAudioPlayerDelegate
         
     }
     
-    func gotoAddPlayerScreen()
+    func gotoSavePlayerScreen()
     {
         self.player.removeFromParent()
         
-//        self.savedScore = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as Int
         println("The Saved Score Is:  \(savedScore)")
         println("The Highest Score Is:  \(highestScore)")
         
@@ -446,7 +455,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate, AVAudioPlayerDelegate
         var removeFromParent = SKAction.self.removeFromParent()
         
         
-        self.player.runAction(SKAction.sequence([inOutActionWhenPlayerDied,inOutActionWhenPlayerDied.reversedAction(),upActionWhenPlayerDied,removeFromParent]),gotoAddPlayerScreen)
+        self.player.runAction(SKAction.sequence([inOutActionWhenPlayerDied,inOutActionWhenPlayerDied.reversedAction(),upActionWhenPlayerDied,removeFromParent]),gotoSavePlayerScreen)
 //      self.player.runAction(SKAction.sequence([inOutActionWhenPlayerDied,inOutActionWhenPlayerDied.reversedAction(),upActionWhenPlayerDied,removeFromParent]),gotoMenuScreen)
         
         
@@ -500,6 +509,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate, AVAudioPlayerDelegate
             runningBar.position.x -= CGFloat(self.groundSpeed)
             blockRunner()
         
+        
+        
     }
     
 //====================================================================================================================//
@@ -526,22 +537,37 @@ class GameScene: SKScene,SKPhysicsContactDelegate, AVAudioPlayerDelegate
                     thisBlock.position.x -= CGFloat(self.groundSpeed)
 
                 }
-                else                                      // IF ITS TIME TO OFF THE SCREEN ie when BLOCKS should DISAPPEAR
+                else                                     // IF ITS TIME TO OFF THE SCREEN ie when BLOCKS should DISAPPEAR
                 {
                     thisBlock.position.x = self.origBlockPositionX
                     blockStatus.isRunning = false
                     self.score = score + 10
                     self.scoreText.text = "Score: \(String(self.score))"
+                    self.levelLabel.text = "Level: \(String(self.level))"
+                    if self.score == 50
+                    {
+                        self.level = level + 1
+                        self.groundSpeed = self.groundSpeed + 7
+                    }
+                    else if self.score == 150
+                    {
+                        self.level = level + 1
+                        self.groundSpeed = self.groundSpeed + 9
+                    }
+                    else if self.score == 300
+                    {
+                        self.level = level + 1
+                        self.groundSpeed = self.groundSpeed + 12
+                    }
+                    else if self.score > 300
+                    {
+                        println("Final Level")
+                    }
                 }
                 //To save highest score
                 self.highestScore = self.score
                 NSUserDefaults.standardUserDefaults().setObject(highestScore, forKey:"HighestScore")
-                NSUserDefaults.standardUserDefaults().synchronize()
-                
-                //To save highest scorer Name
-                self.highestScorer = "UNKNOWN"
-                NSUserDefaults.standardUserDefaults().setObject(highestScorer, forKey:"HighestScorerName")
-                NSUserDefaults.standardUserDefaults().synchronize()
+                NSUserDefaults.standardUserDefaults().setInteger(highestScore, forKey:"SCORE")
                 
             }
             else
@@ -552,6 +578,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate, AVAudioPlayerDelegate
         }
 
     }
+    
+    
+    
 //====================================================================================================================//
 
 }

@@ -14,9 +14,7 @@ let BackgroundImage = "BG"
 let FontFile = "Mackinaw1"
 
 let sKCropNode = "SKCropNode"
-
 let sKEmitterNode = "SKEmitterNode"
-
 let sKLightNode = "SKLightNode"
 let sKShapeNode = "SKShapeNode"
 let sKVideoNode = "SKVideoNode"
@@ -25,13 +23,13 @@ let sKVideoNode = "SKVideoNode"
 
 class NodeMenuScene: SKScene
 {
-    
+    // BACK BUTTON TO MENUSCENE #8 Chap
+    var backbutton = SKLabelNode(fontNamed: FontFile)
+    var menuSceneInstance : MenuScene?
+
     let transitionEffect = SKTransition.flipHorizontalWithDuration(1.0)
     var labelNode : SKNode?
     var backgroundNode : SKNode?
-    
-    var backbutton = SKLabelNode(fontNamed: FontFile)
-    var menuSceneInstance : MenuScene?
     
 //====================================================================================================================//
     

@@ -14,6 +14,7 @@
 		C85D020A1AD5420900F4335D /* AddScoreScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85D02091AD5420900F4335D /* AddScoreScene.swift */; };
 		C85D020C1AD5431B00F4335D /* ScoreList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85D020B1AD5431B00F4335D /* ScoreList.swift */; };
 		C863C97B1AD409960017BACB /* game_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C863C97A1AD409950017BACB /* game_music.mp3 */; };
+		C88250F91ADC20A700D3339A /* MyParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = C88250F81ADC20A700D3339A /* MyParticle.sks */; };
 		C8B914141AC2EF4100861AFC /* blurShade.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C8B914131AC2EF4100861AFC /* blurShade.fsh */; };
 		C8B914161AC2F04100861AFC /* ShaderDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B914151AC2F04100861AFC /* ShaderDemo.swift */; };
 		C8C8EDBF1AD6C1CA00F6AF2F /* bro5_run.atlas in Resources */ = {isa = PBXBuildFile; fileRef = C8C8EDBE1AD6C1CA00F6AF2F /* bro5_run.atlas */; };
@@ -58,6 +59,7 @@
 		C85D02091AD5420900F4335D /* AddScoreScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddScoreScene.swift; sourceTree = "<group>"; };
 		C85D020B1AD5431B00F4335D /* ScoreList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreList.swift; sourceTree = "<group>"; };
 		C863C97A1AD409950017BACB /* game_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = game_music.mp3; path = ../../Downloads/game_music.mp3; sourceTree = "<group>"; };
+		C88250F81ADC20A700D3339A /* MyParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle.sks; sourceTree = "<group>"; };
 		C8B914131AC2EF4100861AFC /* blurShade.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = blurShade.fsh; sourceTree = "<group>"; };
 		C8B914151AC2F04100861AFC /* ShaderDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShaderDemo.swift; path = Platformer_Final/ShaderDemo.swift; sourceTree = "<group>"; };
 		C8B914171AC306EB00861AFC /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -169,6 +171,7 @@
 				C8F399F31AB3377B00476FBB /* MenuScene.swift */,
 				C8F399D51AB335EA00476FBB /* GameViewController.swift */,
 				C8F39A111AB3A7A000476FBB /* BlockStatus.swift */,
+				C88250F81ADC20A700D3339A /* MyParticle.sks */,
 				C8F399D71AB335EA00476FBB /* Main.storyboard */,
 				C8F399DC1AB335EA00476FBB /* LaunchScreen.xib */,
 				C85DD7D41AB9490700A1FDF4 /* Different Scenes #4 */,
@@ -294,6 +297,7 @@
 				C8F399DE1AB335EA00476FBB /* LaunchScreen.xib in Resources */,
 				C8F399D91AB335EA00476FBB /* Main.storyboard in Resources */,
 				C8B914141AC2EF4100861AFC /* blurShade.fsh in Resources */,
+				C88250F91ADC20A700D3339A /* MyParticle.sks in Resources */,
 				C8C8EDBF1AD6C1CA00F6AF2F /* bro5_run.atlas in Resources */,
 				C8F39A0C1AB34AC700476FBB /* Game.sks in Resources */,
 				C863C97B1AD409960017BACB /* game_music.mp3 in Resources */,

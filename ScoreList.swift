@@ -26,8 +26,8 @@ class ScoreList: SKScene,UITextFieldDelegate
     override func didMoveToView(view: SKView)
     {
         self.playerNameTextField.delegate = self
-        addPlayerNameTextBox()
         addScoresSceneBtn()
+        addPlayerNameTextBox()
         addCancelBtn()
         congratsUserAndSaveScorerName()
         
@@ -50,7 +50,7 @@ class ScoreList: SKScene,UITextFieldDelegate
         {
             let location = touch.locationInNode(self)
             let node = self.nodeAtPoint(location)
-            if self.nodeAtPoint(location) == self.addPlayerButton
+            if node.name == "SCORES"
             {
                 if playerNameTextField.text.isEmpty
                 {

@@ -22,8 +22,8 @@ class AddScoreScene: SKScene
     override func didMoveToView(view: SKView)
     {
         self.backgroundColor = UIColor.greenColor()
-        showHeightScores()
-        showHeightScorerName()
+        showHeighestScores()
+        showHeighestScorerName()
         addBackBtn()
     }
     
@@ -44,11 +44,11 @@ class AddScoreScene: SKScene
 
 //====================================================================================================================//
     
-    func showHeightScorerName()
+    func showHeighestScorerName()
     {
         if(NSUserDefaults.standardUserDefaults().objectForKey("HighestScorerName")) == (nil)
         {
-            savedScorerName = "UNKNOWN"
+            savedScorerName = " "
         }
         else
         {
@@ -68,7 +68,7 @@ class AddScoreScene: SKScene
     
 //====================================================================================================================//
     
-    func showHeightScores()
+    func showHeighestScores()
     {
         if(NSUserDefaults.standardUserDefaults().objectForKey("HighestScore")) == (nil)
         {
@@ -79,8 +79,6 @@ class AddScoreScene: SKScene
             savedScore = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as Int
             println(savedScore)
         }
-        
-        
         
         var highScoreLabel = SKLabelNode(fontNamed: "Chalkduster")
         highScoreLabel.fontColor = UIColor.blueColor()

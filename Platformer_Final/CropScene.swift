@@ -8,17 +8,18 @@
 
 import Foundation
 import SpriteKit
+
 class CropScene : SKScene
 {
     var play : SKSpriteNode?
-     var once:Bool = true
+    var once:Bool = true
     
 //====================================================================================================================//
     
     override func didMoveToView(view: SKView)
     {
         play = SKSpriteNode(imageNamed: "Play")
-        var crop = SKCropNode()
+        let crop = SKCropNode()
         crop.maskNode = play
         crop.addChild(SKSpriteNode(imageNamed: "BG"))
         addChild(crop)
@@ -29,26 +30,29 @@ class CropScene : SKScene
 
     func addBackLabel()
     {
-        var backbutton = SKLabelNode(fontNamed: FontFile)
-        backbutton.fontColor = UIColor.blueColor()
+        let backbutton = SKLabelNode(fontNamed: "Chalkduster")
+        backbutton.fontColor = UIColor.redColor()
         backbutton.name = "BACK"
         backbutton.text = "BACK"
         backbutton.position = CGPointMake(CGRectGetMinX(self.frame) + backbutton.frame.width/2 , CGRectGetMinY(self.frame))
+        backbutton.zPosition = 3
         self.addChild(backbutton)
+    
     }
     
 //====================================================================================================================//
    
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
-    {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch: AnyObject in touches {
             let location = touch.locationInNode(self)
             let node = self.nodeAtPoint(location)
-            if node.name == "BACK" {
-                if once {
+            if node.name == "BACK"
+            {
+                if once
+                {
                     once = false
                     let transitionEffect = SKTransition.flipHorizontalWithDuration(1.0)
-                    var scene = NodeMenuScene()
+                    let scene = NodeMenuScene()
                     scene.anchorPoint = CGPointMake(0.5, 0.5)
                     scene.scaleMode = .ResizeFill
                     scene.size = self.size
@@ -56,6 +60,7 @@ class CropScene : SKScene
                 }
             }
         }
+
     }
     
 //====================================================================================================================//

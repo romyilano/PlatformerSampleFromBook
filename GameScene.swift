@@ -6,20 +6,18 @@
 //  Copyright (c) 2015 Daphnis. All rights reserved.
 //
 
-// Final Code
 import Foundation
 import SpriteKit
 import SceneKit
 import AVFoundation
 
-
-
 class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
 {
+    var numberOfBlocksCrosssed = 0
+    
     // ADDING LEVELS
     let levelLabel = SKLabelNode(fontNamed: "Chalkduster")
     var level = 1
-    
     
     var highScorerListInstance : ScoreList?
     var highestScore:Int = Int()
@@ -28,36 +26,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
     
     // ADDING SOUND EFFECT
     var avPlayer:AVAudioPlayer!
-    var backgroundSound = "game_music"
-    var gameOutSound = "Strong_Punch-Mike_Koenig-574430706"
-
-    
-    func readFileIntoAVPlayer(soundName:String, ext:String)
-    {
-        var error: NSError?
-        let fileURL:NSURL = NSBundle.mainBundle().URLForResource(soundName, withExtension: ext)!
-        
-        self.avPlayer = AVAudioPlayer(contentsOfURL: fileURL, error: &error)
-        if avPlayer == nil
-        {
-            if let e = error
-            {
-                println(e.localizedDescription)
-            }
-        }
-        
-        if avPlayer.playing
-        {
-            avPlayer.stop()
-        }
-        
-        println("playing \(fileURL)")
-        avPlayer.delegate = self
-        avPlayer.prepareToPlay()
-        avPlayer.volume = 1.0
-        avPlayer.play()
-    }
- 
+    let backgroundSound = "game_music"
+    let gameOutSound = "Strong_Punch-Mike_Koenig-574430706"
     
     // ADDING A PAUSE BUTTON
     var pauseBtn:SKSpriteNode = SKSpriteNode(imageNamed: "PLAY-PAUSE")
@@ -109,6 +79,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
     }
     
 //====================================================================================================================//
+    
     //#1
     override func didMoveToView(view: SKView)
     {
@@ -118,10 +89,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
         }
         else
         {
-            self.highestScore = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as Int
+            self.highestScore = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as! Int
             
         }
-        println(savedScore)
+        print(savedScore)
        
         readFileIntoAVPlayer(backgroundSound, ext: "mp3")
         
@@ -132,7 +103,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
         self.physicsWorld.contactDelegate = self
         
         // JUMP BUTTON POSITION SETTING AND ADDING ONTO THE SCREEN
-        self.btnJump.position = CGPointMake(-(self.size.width/2.2), -(self.size.height/4))
+        self.btnJump.position = CGPointMake(-(self.size.width/2.3), -(self.size.height/4))
         self.btnJump.zPosition = 1
         self.addChild(btnJump)
 
@@ -151,26 +122,65 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
         //addSpriteWithoutTexture()
         
         addPlayPauseButton()
-        
     }
 //====================================================================================================================//
+    func readFileIntoAVPlayer(soundName:String, ext:String)
+    {
+        var error: NSError?
+//        if self.soundName != nil
+//        {
+            let fileURL:NSURL = NSBundle.mainBundle().URLForResource(soundName, withExtension: ext)!
+            
+        do {
+            self.avPlayer = try AVAudioPlayer(contentsOfURL: fileURL)
+        } catch let error1 as NSError {
+            error = error1
+            self.avPlayer = nil
+        }
+            if avPlayer == nil
+            {
+                if let e = error
+                {
+                    print(e.localizedDescription)
+                }
+            }
+            
+            if avPlayer.playing
+            {
+                avPlayer.stop()
+            }
+            
+            print("playing \(fileURL)")
+            avPlayer.delegate = self
+            avPlayer.prepareToPlay()
+            avPlayer.volume = 1.0
+            avPlayer.play()
+//        }
+    }
+
+//====================================================================================================================//
+
     func addLevelLabel()
     {
         self.levelLabel.text = "Level: 1"
         self.levelLabel.fontSize = 30
-        self.levelLabel.position = CGPointMake(CGRectGetMidX(self.frame)  + scoreText.frame.width  / 2 /*  4 */ , CGRectGetMidY(self.frame) + levelLabel.frame.height * 4.2)
+        self.levelLabel.zPosition = 3
+        self.levelLabel.position = CGPointMake(CGRectGetMidX(self.frame) + scoreText.frame.width , CGRectGetMidY(self.frame) + levelLabel.frame.height * 4.2)
         self.addChild(self.levelLabel)
     }
+
+//====================================================================================================================//
     
     func addScoreLabel()
     {
         self.scoreText.text = "Score: 0"
         self.scoreText.fontSize = 30
+        self.scoreText.zPosition = 3
         self.scoreText.position = CGPointMake(CGRectGetMinX(self.frame) + scoreText.frame.width / 1.8  , CGRectGetMidY(self.frame) + scoreText.frame.height * 4.2)
         self.addChild(self.scoreText)
     }
     
-    
+//====================================================================================================================//
  
     func addPlayPauseButton()
     {
@@ -182,6 +192,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
         
     }
 //====================================================================================================================//
+    
     // ATLAS IMAGES METHOD FOR PLAYER RUNNING ACTION #8
     func runForwardTexture()
     {
@@ -201,15 +212,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
         player.runAction(run, withKey: "running")
     }
     
-    
    //====================================================================================================================//
+    
     // #4
     // GENERATING NODES RANDOMLY (TAKING NUMBERS BETWEEN 50_200 RANDOMLY)
     func random() -> UInt32
     {
-        var range = UInt32(50)..<UInt32(200)
+        let range = UInt32(50)..<UInt32(200)
         return range.startIndex + arc4random_uniform(range.endIndex - range.startIndex + 1)    //CREATING BLOCKS FROM A LIBRARY METHODS OF IOS
     }
+    
 //====================================================================================================================//
     
     func addSpriteWithoutTexture()
@@ -224,8 +236,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
     func addBackGround()
     {
         backgroundNode.zPosition = 0
-        var scaleX =  self.size.width/backgroundNode.size.width
-        var scaleY =  self.size.height/backgroundNode.size.height
+        let scaleX =  self.size.width/backgroundNode.size.width
+        let scaleY =  self.size.height/backgroundNode.size.height
         backgroundNode.xScale = scaleX
         backgroundNode.yScale = scaleY
         addChild(backgroundNode)
@@ -249,6 +261,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
             
         }
     }
+    
 //====================================================================================================================//
     
     // USED IN NEXT CHAPTERS RELATED TO "LIGHT SCENE, CROP SCENE, PARTICLE SCENE, SHAPE SCENE"
@@ -272,12 +285,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
 //====================================================================================================================//
     
     //SETTING UP and ADDING PLAYER  (in CHAPTER 5 )
+    
     func addPlayer()
     {
-       // player = SKSpriteNode(texture: myAtlas.textureNamed("bro5_idle0001"))
-        //player.position = CGPoint(x:0,y:0)
-        //player.zPosition = 2;
-        player.name = "Player"
+        self.player.name = "Player"
         
         // PHYSICS PROPERTIES FOR player
         self.playerBaseline = self.runningBar.position.y + (self.runningBar.size.height / 2) + (self.player.size.height / 2)
@@ -291,12 +302,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
         
         self.addChild(player)
     }
+    
 //====================================================================================================================//
   
     //SETTING UP and ADDING RUNNING BAR  (in CHAPTER 5 )
     func addRunningBar()
    {
         self.runningBar.anchorPoint = CGPointMake(0, 0.5)
+        self.runningBar.zPosition = 3
         self.runningBar.position = CGPointMake(CGRectGetMinX(self.frame),CGRectGetMinY(self.frame) + (self.runningBar.size.height / 2))
         self.origRunningBarPositionX = self.runningBar.position.x
         self.maxBarX = self.runningBar.size.width - self.frame.size.width
@@ -333,20 +346,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
         blockStatuses["block1"] = BlockStatus(isRunning: false, timeGapForNextRun: random(), currentInterval: UInt32(0))
         blockStatuses["block2"] = BlockStatus(isRunning: false, timeGapForNextRun: random(), currentInterval: UInt32(0))
         
-        self.blockMaxX = 0 - self.runningBar.size.width //0 - self.block1.size.width / 0.2
-        println(self.blockMaxX)
+        self.blockMaxX = 0 - self.runningBar.size.width / 2.5 //0 - self.block1.size.width / 0.2
+        print(self.blockMaxX)
         
-//        self.block1.shader = fragmentShader
         self.addChild(self.block1)
         self.addChild(self.block2)
-
-        
     }
 
 //====================================================================================================================//
-   // #5
+   
+    // #5
     // CALLED WHEN TOUCH HAS BEGAN ON GameScene
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch: AnyObject in touches
         {
             let location = touch.locationInNode(self)
@@ -365,8 +376,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
             // JUMP BUTTON ACTION
             if self.btnJump.containsPoint(location)
             {
-                
-                println("Jump Tapped!")
+                print("Jump Tapped!")
                 if self.onGround
                 {
                     self.velocityY = -18.0
@@ -377,33 +387,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
             {
                 if(self.view?.paused == false)
                 {
-                    println("Game Scene is Paused")
+                    print("Game Scene is Paused")
                     self.view?.paused = true
+                    
                 }
                 else
                 {
-                    println("Game Scene is Resumed")
+                    print("Game Scene is Resumed")
                     self.view?.paused = false
                 }
             }
             
         }
     }
+    
 //====================================================================================================================//
+    
     // #6
     // CALLED WHEN TOUCH IS RELEASED ON GameScene
-    override func touchesEnded(touches: NSSet, withEvent event: UIEvent)
-    {
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch: AnyObject in touches
         {
             if self.velocityY < -9.0    //SETTING VELOCITY FOR JUMP ACTION IS FINISHED
             {
                 self.velocityY = -9.0
             }
-
+            
         }
     }
+    
 //====================================================================================================================//
+  
     func gotoMenuScreen()
     {
         self.player.removeFromParent()
@@ -412,15 +426,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
         menuSceneInstance = MenuScene(size: self.size , playbutton: "Play", background: "BG")
         menuSceneInstance!.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.view?.presentScene(menuSceneInstance , transition:transitionEffect)
-        
     }
-    
+
+//====================================================================================================================//
+   
     func gotoSavePlayerScreen()
     {
         self.player.removeFromParent()
         
-        println("The Saved Score Is:  \(savedScore)")
-        println("The Highest Score Is:  \(highestScore)")
+        print("The Saved Score Is:  \(savedScore)")
+        print("The Highest Score Is:  \(highestScore)")
         
         if self.highestScore > savedScore
         {
@@ -431,21 +446,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
         }
         
         else if self.highestScore <= savedScore
-            
         {
            gotoMenuScreen()
         }
         
     }
-
-
+    
 //====================================================================================================================//
     
     // WHEN BLOCKS COLLIDES WITH PLAYER (CHAPTER 6)
     func didBeginContact(contact: SKPhysicsContact)
     {
         avPlayer.stop()
-        readFileIntoAVPlayer(gameOutSound, ext: "wav")
+        readFileIntoAVPlayer(gameOutSound, ext: "mp3")
         
         // SHOWING PARTICLE EFFECT WHEN COLLISION HAPPENS
         self.particlePlayerNode.hidden = false
@@ -455,11 +468,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
         var removeFromParent = SKAction.self.removeFromParent()
         
         
-        self.player.runAction(SKAction.sequence([inOutActionWhenPlayerDied,inOutActionWhenPlayerDied.reversedAction(),upActionWhenPlayerDied,removeFromParent]),gotoSavePlayerScreen)
+        self.player.runAction(SKAction.sequence([inOutActionWhenPlayerDied,inOutActionWhenPlayerDied.reversedAction(),upActionWhenPlayerDied,removeFromParent]),completion: gotoSavePlayerScreen)
 //      self.player.runAction(SKAction.sequence([inOutActionWhenPlayerDied,inOutActionWhenPlayerDied.reversedAction(),upActionWhenPlayerDied,removeFromParent]),gotoMenuScreen)
         
-        
-
     }
     
 //====================================================================================================================//
@@ -485,14 +496,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
         }
         
     }
+    
 //====================================================================================================================//
+   
     // #7
     // UPDATE FUNCTION CHAPTER 5
     override func update(currentTime: NSTimeInterval)
     {
         if self.runningBar.position.x <= maxBarX
             {
-                    self.runningBar.position.x = self.origRunningBarPositionX
+                self.runningBar.position.x = self.origRunningBarPositionX
             }
         
             // JUMP ACTION
@@ -508,12 +521,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
             //Move the Ground
             runningBar.position.x -= CGFloat(self.groundSpeed)
             blockRunner()
-        
-        
-        
     }
     
 //====================================================================================================================//
+   
     // #8
     // FOR MAKING BLOCKS RUUNNING
     func blockRunner()
@@ -521,7 +532,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
         // LOOP FOR THE DICTIONARY TO GET BLOCKS
         for(block, blockStatus) in self.blockStatuses
         {
-            var thisBlock = self.childNodeWithName(block)!
+            let thisBlock = self.childNodeWithName(block)!
             if blockStatus.shouldRunBlock()
             {
                 blockStatus.timeGapForNextRun = random()
@@ -531,55 +542,49 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
 
             if blockStatus.isRunning
             {
-
                 if thisBlock.position.x > blockMaxX      // IF IT IS POSITIVE (KEEP MOVING BLOCKS FROM RIGHT TO LEFT)
                 {
                     thisBlock.position.x -= CGFloat(self.groundSpeed)
-
                 }
                 else                                     // IF ITS TIME TO OFF THE SCREEN ie when BLOCKS should DISAPPEAR
                 {
                     thisBlock.position.x = self.origBlockPositionX
                     blockStatus.isRunning = false
                     self.score = score + 10
+                    self.numberOfBlocksCrosssed += 1
                     self.scoreText.text = "Score: \(String(self.score))"
                     self.levelLabel.text = "Level: \(String(self.level))"
-                    if self.score == 50
+                    if self.numberOfBlocksCrosssed == 5
                     {
                         self.level = level + 1
                         self.groundSpeed = self.groundSpeed + 7
                     }
-                    else if self.score == 150
+                    else if self.numberOfBlocksCrosssed == 10
                     {
                         self.level = level + 1
                         self.groundSpeed = self.groundSpeed + 9
                     }
-                    else if self.score == 300
+                    else if self.numberOfBlocksCrosssed == 20
                     {
                         self.level = level + 1
                         self.groundSpeed = self.groundSpeed + 12
                     }
-                    else if self.score > 300
+                    else if self.numberOfBlocksCrosssed > 20
                     {
-                        println("Final Level")
+                        print("Final Level")
                     }
                 }
                 //To save highest score
                 self.highestScore = self.score
                 NSUserDefaults.standardUserDefaults().setObject(highestScore, forKey:"HighestScore")
                 NSUserDefaults.standardUserDefaults().setInteger(highestScore, forKey:"SCORE")
-                
             }
             else
             {
                 blockStatus.currentInterval++
             }
-
         }
-
     }
-    
-    
     
 //====================================================================================================================//
 

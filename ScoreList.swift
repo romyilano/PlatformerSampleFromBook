@@ -13,7 +13,6 @@ import SpriteKit
 class ScoreList: SKScene,UITextFieldDelegate
 {
     var highestScorerName:String = String()
-
     
     let addPlayerButton = SKSpriteNode(imageNamed:"add-player")
     var menuSceneInstance : MenuScene?
@@ -32,19 +31,20 @@ class ScoreList: SKScene,UITextFieldDelegate
         congratsUserAndSaveScorerName()
         
         self.backgroundColor = UIColor.blackColor()
-
     }
+    
 //====================================================================================================================//
     
     func textFieldShouldReturn(playerNameTextField: UITextField) -> Bool
     {
-        println("Text Field Return Key")
+        print("Text Field Return Key")
         playerNameTextField.resignFirstResponder()
         return true
     }
+    
 //====================================================================================================================//
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
     {
         for touch: AnyObject in touches
         {
@@ -72,11 +72,12 @@ class ScoreList: SKScene,UITextFieldDelegate
             }
         }
     }
+    
 //====================================================================================================================//
+    
     func congratsUserAndSaveScorerName()
     {
-        
-        var congratsUserLabel = SKLabelNode(fontNamed: "Chalkduster")
+        let congratsUserLabel = SKLabelNode(fontNamed: "Chalkduster")
         congratsUserLabel.fontColor = UIColor.redColor()
         congratsUserLabel.name = "CONGRATS"
         congratsUserLabel.color = UIColor.lightGrayColor()
@@ -85,6 +86,8 @@ class ScoreList: SKScene,UITextFieldDelegate
         congratsUserLabel.zPosition = 3
         self.addChild(congratsUserLabel)
     }
+    
+//====================================================================================================================//
     
     func goToScoreScene()
     {
@@ -95,6 +98,8 @@ class ScoreList: SKScene,UITextFieldDelegate
         self.view?.presentScene(scoreScene , transition:transitionEffect)
     }
     
+//====================================================================================================================//
+
     func gotoMenuScreen()
     {
         self.playerNameTextField.removeFromSuperview()
@@ -102,12 +107,13 @@ class ScoreList: SKScene,UITextFieldDelegate
         menuSceneInstance = MenuScene(size: self.size , playbutton: "Play", background: "BG")
         menuSceneInstance!.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.view?.presentScene(menuSceneInstance , transition:transitionEffect)
-        
     }
-    
+
+//====================================================================================================================//
+
     func addCancelBtn()
     {
-        var Cancelbutton = SKLabelNode(fontNamed: FontFile)
+        let Cancelbutton = SKLabelNode(fontNamed: FontFile)
         Cancelbutton.fontColor = UIColor.blueColor()
         Cancelbutton.name = "CANCEL"
         Cancelbutton.text = "CANCEL"
@@ -120,7 +126,6 @@ class ScoreList: SKScene,UITextFieldDelegate
     
     func addScoresSceneBtn()
     {
-        
         addPlayerButton.name = "SCORES"
         self.addPlayerButton.position = CGPointMake(CGRectGetMidX(self.frame),CGRectGetMinY(self.frame)/3)
         self.addChild(self.addPlayerButton)

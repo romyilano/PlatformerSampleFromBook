@@ -11,35 +11,39 @@ import SpriteKit
 class LightScene : SKScene
 {
     var lightNode : SKLightNode?
-        var once:Bool = true
+    var once:Bool = true
     
 //====================================================================================================================//
 
     override func didMoveToView(view: SKView)
     {
-        var background = SKSpriteNode(imageNamed: "BG")
+        let background = SKSpriteNode(imageNamed: "BG")
         background.zPosition = 0.5
-        var scaleX =  self.size.width/background.size.width
-        var scaleY =  self.size.height/background.size.height
+        let scaleX =  self.size.width/background.size.width
+        let scaleY =  self.size.height/background.size.height
         background.xScale = scaleX
         background.yScale = scaleY
         addChild(background)
-        println(background.size)
-        var playbutton = SKSpriteNode(imageNamed: "Play")
+        print(background.size)
+        
+        let playbutton = SKSpriteNode(imageNamed: "Play")
         playbutton.zPosition = 1
         playbutton.size = CGSizeMake(100, 100)
         playbutton.position = CGPointMake(-200, 0)
         addChild(playbutton)
-        var playbutton2 = SKSpriteNode(imageNamed: "Play")
+        
+        let playbutton2 = SKSpriteNode(imageNamed: "Play")
         playbutton2.zPosition = 1
         playbutton2.size = CGSizeMake(100, 100)
         playbutton2.position = CGPointMake(0, 100)
         addChild(playbutton2)
-        var playbutton3 = SKSpriteNode(imageNamed: "Play")
+        
+        let playbutton3 = SKSpriteNode(imageNamed: "Play")
         playbutton3.zPosition = 1
         playbutton3.size = CGSizeMake(100, 100)
         playbutton3.position = CGPointMake(200, 0)
         addChild(playbutton3)
+        
         lightNode = SKLightNode()
         lightNode!.categoryBitMask = 1
         lightNode!.falloff = 1
@@ -48,6 +52,7 @@ class LightScene : SKScene
         lightNode!.shadowColor = UIColor.blueColor()
         lightNode!.zPosition = 1
         addChild(lightNode!)
+        
         playbutton.shadowCastBitMask = 1
         playbutton2.shadowCastBitMask = 1
         playbutton3.shadowCastBitMask = 1
@@ -59,7 +64,7 @@ class LightScene : SKScene
 
     func addBackLabel()
     {
-        var backbutton = SKLabelNode(fontNamed: FontFile)
+        let backbutton = SKLabelNode(fontNamed: "Chalkduster")
         backbutton.fontColor = UIColor.blueColor()
         backbutton.name = "BACK"
         backbutton.text = "BACK"
@@ -70,8 +75,7 @@ class LightScene : SKScene
     
 //====================================================================================================================//
 
-    override func touchesMoved(touches: NSSet, withEvent event: UIEvent)
-    {
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch : AnyObject in touches {
             let location = touch.locationInNode(self)
             lightNode!.position = location
@@ -80,7 +84,7 @@ class LightScene : SKScene
                 if once {
                     once = false
                     let transitionEffect = SKTransition.flipHorizontalWithDuration(1.0)
-                    var scene = NodeMenuScene()
+                    let scene = NodeMenuScene()
                     scene.anchorPoint = CGPointMake(0.5, 0.5)
                     scene.scaleMode = .ResizeFill
                     scene.size = self.size
@@ -88,6 +92,8 @@ class LightScene : SKScene
                 }
             }
         }
+
     }
+    
 //====================================================================================================================//
 }

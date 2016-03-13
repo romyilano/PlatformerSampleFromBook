@@ -11,15 +11,13 @@ import UIKit
 import SpriteKit
 
 let BackgroundImage = "BG"
-let FontFile = "Mackinaw1"
+let FontFile = "Chalkduster"
 
 let sKCropNode = "SKCropNode"
 let sKEmitterNode = "SKEmitterNode"
 let sKLightNode = "SKLightNode"
 let sKShapeNode = "SKShapeNode"
 let sKVideoNode = "SKVideoNode"
-
-
 
 class NodeMenuScene: SKScene
 {
@@ -35,13 +33,15 @@ class NodeMenuScene: SKScene
     
     override func didMoveToView(view: SKView)
     {
+        print("You are in Node Menu Scene")
         backgroundNode = getBackgroundNode()
         backgroundNode!.zPosition = 0
         self.addChild(backgroundNode!)
         labelNode = getLabelNode()
         labelNode?.zPosition = 1
         self.addChild(labelNode!)
-       addBackBtn()
+        addBackBtn()
+        print("Node Menu Scene finished")
 
         
     }
@@ -50,8 +50,8 @@ class NodeMenuScene: SKScene
 
     func getBackgroundNode() -> SKNode
     {
-        var bgnode = SKNode()
-        var bgSprite = SKSpriteNode(imageNamed: "BG")
+        let bgnode = SKNode()
+        let bgSprite = SKSpriteNode(imageNamed: "BG")
         bgSprite.xScale = self.size.width/bgSprite.size.width
         bgSprite.yScale = self.size.height/bgSprite.size.height
         bgnode.addChild(bgSprite)
@@ -63,8 +63,8 @@ class NodeMenuScene: SKScene
     
     func getLabelNode() -> SKNode
     {
-        var labelNode = SKNode()
-        var cropnode = SKLabelNode(fontNamed: FontFile)
+        let labelNode = SKNode()
+        let cropnode = SKLabelNode(fontNamed: FontFile)
         cropnode.fontColor = UIColor.whiteColor()
         cropnode.name = sKCropNode
         cropnode.text = sKCropNode
@@ -73,32 +73,32 @@ class NodeMenuScene: SKScene
         
         
         
-        var emitternode = SKLabelNode(fontNamed: FontFile)
-        emitternode.fontColor = UIColor.blueColor()
+        let emitternode = SKLabelNode(fontNamed: FontFile)
+        emitternode.fontColor = UIColor.brownColor()
         emitternode.name = sKEmitterNode
         emitternode.text = sKEmitterNode
         emitternode.position = CGPointMake(CGRectGetMinX(self.frame) + emitternode.frame.width/2 , CGRectGetMidY(self.frame) - emitternode.frame.height/2)
         labelNode.addChild(emitternode)
         
-        var lightnode = SKLabelNode(fontNamed: FontFile)
-        lightnode.fontColor = UIColor.whiteColor()
+        let lightnode = SKLabelNode(fontNamed: FontFile)
+        lightnode.fontColor = UIColor.redColor()
         lightnode.name = sKLightNode
         lightnode.text = sKLightNode
         lightnode.position = CGPointMake(CGRectGetMaxX(self.frame) - lightnode.frame.width/2 , CGRectGetMaxY(self.frame) - lightnode.frame.height)
         labelNode.addChild(lightnode)
         
-        var shapetnode = SKLabelNode(fontNamed: FontFile)
+        let shapetnode = SKLabelNode(fontNamed: FontFile)
         shapetnode.fontColor = UIColor.greenColor()
         shapetnode.name = sKShapeNode
         shapetnode.text = sKShapeNode
         shapetnode.position = CGPointMake(CGRectGetMaxX(self.frame) - shapetnode.frame.width/2 , CGRectGetMidY(self.frame) - shapetnode.frame.height/2)
         labelNode.addChild(shapetnode)
         
-        var videonode = SKLabelNode(fontNamed: FontFile)
-        videonode.fontColor = UIColor.blueColor()
+        let videonode = SKLabelNode(fontNamed: FontFile)
+        videonode.fontColor = UIColor.purpleColor()
         videonode.name = sKVideoNode
         videonode.text = sKVideoNode
-        videonode.position = CGPointMake(CGRectGetMaxX(self.frame) - videonode.frame.width/2 , CGRectGetMinY(self.frame) )
+        videonode.position = CGPointMake(CGRectGetMaxX(self.frame) - videonode.frame.width/2 , CGRectGetMinY(self.frame) + videonode.frame.height )
         labelNode.addChild(videonode)
         
         return labelNode
@@ -107,7 +107,7 @@ class NodeMenuScene: SKScene
 //====================================================================================================================//
 
     var once:Bool = true
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
     {
         if !once {
             return
@@ -118,7 +118,7 @@ class NodeMenuScene: SKScene
                 let node = self.nodeAtPoint(location)
                 if node.name == sKCropNode {
                     once = false
-                    var scene = CropScene()
+                    let scene = CropScene()
                     scene.anchorPoint = CGPointMake(0.5, 0.5)
                     scene.scaleMode = .ResizeFill
                     scene.size = self.size
@@ -127,7 +127,7 @@ class NodeMenuScene: SKScene
                     
                 else if node.name == sKEmitterNode {
                     once = false
-                    var scene = ParticleScene()
+                    let scene = ParticleScene()
                     scene.anchorPoint = CGPointMake(0.5, 0.5)
                     scene.scaleMode = .ResizeFill
                     scene.size = self.size
@@ -135,7 +135,7 @@ class NodeMenuScene: SKScene
                 }
                 else if node.name == sKLightNode {
                     once = false
-                    var scene = LightScene()
+                    let scene = LightScene()
                     scene.scaleMode = .ResizeFill
                     scene.size = self.size
                     scene.anchorPoint = CGPointMake(0.5, 0.5)
@@ -143,7 +143,7 @@ class NodeMenuScene: SKScene
                 }
                 else if node.name == sKShapeNode {
                     once = false
-                    var scene = ShapeScene()
+                    let scene = ShapeScene()
                     scene.scaleMode = .ResizeFill
                     scene.size = self.size
                     
@@ -152,7 +152,7 @@ class NodeMenuScene: SKScene
                 }
                 else if node.name == sKVideoNode {
                     once = false
-                    var scene = VideoNodeScene()
+                    let scene = VideoNodeScene()
                     scene.scaleMode = .ResizeFill
                     scene.size = self.size
                     scene.anchorPoint = CGPointMake(0.5, 0.5)
@@ -160,15 +160,14 @@ class NodeMenuScene: SKScene
                 }
                 else if node.name == "BACK"
                 {
-                    println("You Pressed BACK Button")
+                    print("You Pressed BACK Button")
                     goToMenuScene()
-            }
-    
-                
-            
+                }
         }
     }
     
+//====================================================================================================================//
+   
     func goToMenuScene()
     {
         let transitionEffect = SKTransition.flipHorizontalWithDuration(1.0)
@@ -177,9 +176,11 @@ class NodeMenuScene: SKScene
         self.view?.presentScene(menuSceneInstance , transition:transitionEffect)
     }
     
+//====================================================================================================================//
+    
     func addBackBtn()
     {
-        var backbutton = SKLabelNode(fontNamed: FontFile)
+        let backbutton = SKLabelNode(fontNamed: FontFile)
         backbutton.fontColor = UIColor.blueColor()
         backbutton.name = "BACK"
         backbutton.text = "BACK"

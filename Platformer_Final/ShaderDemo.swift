@@ -9,7 +9,6 @@
 import Foundation
 import SpriteKit
 
-
 class ShaderDemo : SKScene
 {
     var menuSceneInstance : MenuScene?
@@ -32,7 +31,7 @@ class ShaderDemo : SKScene
     }
 //====================================================================================================================//
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) 
     {
         for touch: AnyObject in touches
         {
@@ -52,7 +51,6 @@ class ShaderDemo : SKScene
         menuSceneInstance = MenuScene(size: self.size , playbutton: "Play", background: "BG")
         menuSceneInstance!.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.view?.presentScene(menuSceneInstance , transition:transitionEffect)
-        
     }
 //====================================================================================================================//
     

@@ -8,6 +8,7 @@
 
 import Foundation
 import SpriteKit
+
 class ParticleScene : SKScene
 {
     var emitternode :SKEmitterNode?
@@ -16,7 +17,7 @@ class ParticleScene : SKScene
 
     override func didMoveToView(view: SKView)
     {
-        var path = NSBundle.mainBundle().pathForResource("MagicParticle", ofType: "sks")
+        let path = NSBundle.mainBundle().pathForResource("MagicParticle", ofType: "sks")
         emitternode = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as? SKEmitterNode
         self.addChild(emitternode!)
         addBackLabel()
@@ -25,7 +26,7 @@ class ParticleScene : SKScene
 
     func addBackLabel()
     {
-        var backbutton = SKLabelNode(fontNamed: FontFile)
+        let backbutton = SKLabelNode(fontNamed: FontFile)
         backbutton.fontColor = UIColor.blueColor()
         backbutton.name = "BACK"
         backbutton.text = "BACK"
@@ -36,17 +37,17 @@ class ParticleScene : SKScene
 //====================================================================================================================//
 
     var once:Bool = true
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) 
     {
         for touch:AnyObject in touches {
-            var location = touch.locationInNode(self)
+            let location = touch.locationInNode(self)
             emitternode?.position = location
             let node = self.nodeAtPoint(location)
             if node.name == "BACK" {
                 if once {
                     once = false
                     let transitionEffect = SKTransition.flipHorizontalWithDuration(1.0)
-                    var scene = NodeMenuScene()
+                    let scene = NodeMenuScene()
                     scene.anchorPoint = CGPointMake(0.5, 0.5)
                     scene.scaleMode = .ResizeFill
                     scene.size = self.size
@@ -55,6 +56,7 @@ class ParticleScene : SKScene
             }
         }
     }
+    
 //====================================================================================================================//
 
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 import SpriteKit
+
 class ShapeScene : SKScene
 {
     
@@ -15,9 +16,8 @@ class ShapeScene : SKScene
 
     override func didMoveToView(view: SKView)
     {
-        
-        var shape = SKShapeNode()
-        var path = CGPathCreateMutable()
+        let shape = SKShapeNode()
+        let path = CGPathCreateMutable()
         CGPathMoveToPoint(path, nil, 0, 0)
         CGPathAddLineToPoint(path, nil, 10  , 100)
         CGPathAddLineToPoint(path, nil, 20, 0)
@@ -34,7 +34,7 @@ class ShapeScene : SKScene
 
     func addBackLabel()
     {
-        var backbutton = SKLabelNode(fontNamed: FontFile)
+        let backbutton = SKLabelNode(fontNamed: FontFile)
         backbutton.fontColor = UIColor.blueColor()
         backbutton.name = "BACK"
         backbutton.text = "BACK"
@@ -46,7 +46,7 @@ class ShapeScene : SKScene
 
     var once:Bool = true
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
     {
         for touch: AnyObject in touches {
             let location = touch.locationInNode(self)
@@ -55,7 +55,7 @@ class ShapeScene : SKScene
                 if once {
                     once = false
                     let transitionEffect = SKTransition.flipHorizontalWithDuration(1.0)
-                    var scene = NodeMenuScene()
+                    let scene = NodeMenuScene()
                     scene.anchorPoint = CGPointMake(0.5, 0.5)
                     scene.scaleMode = .ResizeFill
                     scene.size = self.size
@@ -64,6 +64,7 @@ class ShapeScene : SKScene
             }
         }
     }
+    
 //====================================================================================================================//
 
 }

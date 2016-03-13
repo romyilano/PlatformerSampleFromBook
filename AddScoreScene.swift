@@ -17,11 +17,10 @@ class AddScoreScene: SKScene
     var savedScorerName: String = String()
     var savedScore: Int = Int()
     
-    
 //====================================================================================================================//
     override func didMoveToView(view: SKView)
     {
-        self.backgroundColor = UIColor.greenColor()
+        self.backgroundColor = UIColor.brownColor()
         showHeighestScores()
         showHeighestScorerName()
         addBackBtn()
@@ -29,8 +28,7 @@ class AddScoreScene: SKScene
     
 //====================================================================================================================//
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
-    {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch: AnyObject in touches
         {
             let location = touch.locationInNode(self)
@@ -48,19 +46,19 @@ class AddScoreScene: SKScene
     {
         if(NSUserDefaults.standardUserDefaults().objectForKey("HighestScorerName")) == (nil)
         {
-            savedScorerName = " "
+            savedScorerName = "Unknown"
         }
         else
         {
-            savedScorerName = NSUserDefaults.standardUserDefaults().objectForKey("HighestScorerName") as String
-            println(savedScorerName)
+            savedScorerName = NSUserDefaults.standardUserDefaults().objectForKey("HighestScorerName") as! String
+            print(savedScorerName)
         }
         
-        var highScorerNameLabel = SKLabelNode(fontNamed: "Chalkduster")
-        highScorerNameLabel.fontColor = UIColor.blueColor()
+        let highScorerNameLabel = SKLabelNode(fontNamed: "Chalkduster")
+        highScorerNameLabel.fontColor = UIColor.whiteColor()
         highScorerNameLabel.name = "HIGHESTSCORERNAME"
         highScorerNameLabel.color = UIColor.lightGrayColor()
-        highScorerNameLabel.text = "High Scorer :  \(savedScorerName)"
+        highScorerNameLabel.text = "High Scorer:  \(savedScorerName)"
         highScorerNameLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + (highScorerNameLabel.frame.height * 2))
         highScorerNameLabel.zPosition = 3
         self.addChild(highScorerNameLabel)
@@ -76,12 +74,12 @@ class AddScoreScene: SKScene
         }
         else
         {
-            savedScore = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as Int
-            println(savedScore)
+            savedScore = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as! Int
+            print(savedScore)
         }
         
-        var highScoreLabel = SKLabelNode(fontNamed: "Chalkduster")
-        highScoreLabel.fontColor = UIColor.blueColor()
+        let highScoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+        highScoreLabel.fontColor = UIColor.whiteColor()
         highScoreLabel.name = "HIGHESTSCORE"
         highScoreLabel.color = UIColor.lightGrayColor()
         highScoreLabel.text = "The Score is: \(savedScore)"
@@ -94,7 +92,7 @@ class AddScoreScene: SKScene
     
     func addBackBtn()
     {
-        var mainMenubutton = SKLabelNode(fontNamed: FontFile)
+        let mainMenubutton = SKLabelNode(fontNamed: "Chalkduster")
         mainMenubutton.fontColor = UIColor.blueColor()
         mainMenubutton.name = "MAIN MENU"
         mainMenubutton.text = "MAIN MENU"

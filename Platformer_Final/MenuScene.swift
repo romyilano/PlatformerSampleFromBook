@@ -134,7 +134,7 @@ class MenuScene: SKScene
         let transitionEffect = SKTransition.flipHorizontalWithDuration(1.0)
         scoreScene = AddScoreScene(size: self.size) // , playbutton: "Play", background: "BG")
         scoreScene!.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        self.view?.presentScene(scoreScene , transition:transitionEffect)
+        self.view?.presentScene(scoreScene! , transition:transitionEffect)
     }
  
 //====================================================================================================================//
@@ -144,7 +144,7 @@ class MenuScene: SKScene
         let transitionEffect = SKTransition.flipHorizontalWithDuration(1.0)
         gameScene = GameScene(size: self.size)
         gameScene!.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        self.view?.presentScene(gameScene , transition:transitionEffect)
+        self.view?.presentScene(gameScene! , transition:transitionEffect)
     }
     
 //====================================================================================================================//
@@ -154,7 +154,7 @@ class MenuScene: SKScene
         let transitionEffect = SKTransition.flipHorizontalWithDuration(1.0)
         shaderSceneInstance = ShaderDemo(size: self.size)
         shaderSceneInstance!.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        self.view?.presentScene(shaderSceneInstance , transition:transitionEffect)
+        self.view?.presentScene(shaderSceneInstance! , transition:transitionEffect)
     }
     
 //====================================================================================================================//
@@ -164,7 +164,7 @@ class MenuScene: SKScene
         let transitionEffect = SKTransition.flipHorizontalWithDuration(1.0)
         nodeMenuSceneInstance = NodeMenuScene(size: self.size)
         nodeMenuSceneInstance!.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        self.view?.presentScene(nodeMenuSceneInstance , transition:transitionEffect)
+        self.view?.presentScene(nodeMenuSceneInstance! , transition:transitionEffect)
     }
     
 //====================================================================================================================//

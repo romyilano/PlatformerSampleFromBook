@@ -52,13 +52,13 @@ class ScoreList: SKScene,UITextFieldDelegate
             let node = self.nodeAtPoint(location)
             if node.name == "SCORES"
             {
-                if playerNameTextField.text.isEmpty
+                if playerNameTextField.text!.isEmpty
                 {
                     playerNameTextField.placeholder = "Please Enter the Player Name"
                 }
                 else
                 {
-                    self.highestScorerName = self.playerNameTextField.text
+                    self.highestScorerName = self.playerNameTextField.text!
                     NSUserDefaults.standardUserDefaults().setObject(highestScorerName, forKey:"HighestScorerName")
                     NSUserDefaults.standardUserDefaults().synchronize()
                     
@@ -95,7 +95,7 @@ class ScoreList: SKScene,UITextFieldDelegate
         let transitionEffect = SKTransition.flipHorizontalWithDuration(1.0)
         scoreScene = AddScoreScene(size: self.size)
         scoreScene!.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        self.view?.presentScene(scoreScene , transition:transitionEffect)
+        self.view?.presentScene(scoreScene! , transition:transitionEffect)
     }
     
 //====================================================================================================================//
@@ -106,7 +106,7 @@ class ScoreList: SKScene,UITextFieldDelegate
         let transitionEffect = SKTransition.flipHorizontalWithDuration(1.0)
         menuSceneInstance = MenuScene(size: self.size , playbutton: "Play", background: "BG")
         menuSceneInstance!.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        self.view?.presentScene(menuSceneInstance , transition:transitionEffect)
+        self.view?.presentScene(menuSceneInstance! , transition:transitionEffect)
     }
 
 //====================================================================================================================//

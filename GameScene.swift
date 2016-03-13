@@ -108,9 +108,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
         self.addChild(btnJump)
 
        //PROPERTIES FOR PARTICLE NODE      CHAPTER 7
-        self.particlePlayerNode.zPosition = 1
-        self.particlePlayerNode.hidden = true
-        self.player.addChild(self.particlePlayerNode)
+        self.particlePlayerNode!.zPosition = 1
+        self.particlePlayerNode!.hidden = true
+        self.player.addChild(self.particlePlayerNode!)
         
         //#3
         addBackGround()
@@ -425,7 +425,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
         let transitionEffect = SKTransition.doorsCloseHorizontalWithDuration(1.5) //flipVerticalWithDuration(2)//.flipHorizontalWithDuration(3)
         menuSceneInstance = MenuScene(size: self.size , playbutton: "Play", background: "BG")
         menuSceneInstance!.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        self.view?.presentScene(menuSceneInstance , transition:transitionEffect)
+        self.view?.presentScene(menuSceneInstance! , transition:transitionEffect)
     }
 
 //====================================================================================================================//
@@ -442,7 +442,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
             let transitionEffect = SKTransition.doorsCloseHorizontalWithDuration(1.5)
             highScorerListInstance = ScoreList(size: self.size) // , playbutton: "Play", background: "BG")
             highScorerListInstance!.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            self.view?.presentScene(highScorerListInstance , transition:transitionEffect)
+            self.view?.presentScene(highScorerListInstance! , transition:transitionEffect)
         }
         
         else if self.highestScore <= savedScore
@@ -461,7 +461,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate
         readFileIntoAVPlayer(gameOutSound, ext: "mp3")
         
         // SHOWING PARTICLE EFFECT WHEN COLLISION HAPPENS
-        self.particlePlayerNode.hidden = false
+        self.particlePlayerNode!.hidden = false
         
         var inOutActionWhenPlayerDied = SKAction.scaleBy(0.5, duration: 0.5)
         var upActionWhenPlayerDied = SKAction.moveToY(self.player.size.height * 4, duration: 2)

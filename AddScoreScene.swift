@@ -108,7 +108,7 @@ class AddScoreScene: SKScene
         let transitionEffect = SKTransition.flipHorizontalWithDuration(1.0)
         menuSceneInstance = MenuScene(size: self.size , playbutton: "Play", background: "BG")
         menuSceneInstance!.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        self.view?.presentScene(menuSceneInstance , transition:transitionEffect)
+        self.view?.presentScene(menuSceneInstance! , transition:transitionEffect)
     }
     
 //====================================================================================================================//
